@@ -28,6 +28,14 @@
             -webkit-tap-highlight-color: transparent;
             outline: none; user-select: none; scroll-behavior: smooth;
         }
+        
+        *{
+    transition:
+    background-color .45s cubic-bezier(.4,0,.2,1),
+    color .45s cubic-bezier(.4,0,.2,1),
+    border-color .45s cubic-bezier(.4,0,.2,1),
+    box-shadow .45s cubic-bezier(.4,0,.2,1);
+}
 
         body {
             background: var(--bg-deep);
@@ -282,7 +290,7 @@
         @keyframes ripple { to { transform: scale(4); opacity: 0; } }
 
     
-#loaderWanz{position:fixed;inset:0;background:#0a0a0a;z-index:99999;display:flex;flex-direction:column;justify-content:center;align-items:center}
+#loaderWanz{position:fixed;inset:0;background:#0a0a0a;z-index:99999;display:flex;flex-direction:column;justify-content:center;align-items:center;color:#fff;} 
 .spinnerWanz{width:60px;height:60px;border:4px solid #333;border-top:4px solid #3b82f6;border-radius:50%;animation:spinWanz 1s linear infinite}
 @keyframes spinWanz{100%{transform:rotate(360deg)}}
 .stats-box{display:flex;gap:10px;margin:15px 0}
@@ -308,29 +316,190 @@
     opacity:1;
 }
 
+.light-mode{
+    --bg-main:#f5f5f5;
+    --bg-deep:#ffffff;
+    --card-light:#ffffff;
+    --card-surface:#f1f1f1;
+    --text-on-light:#111;
+    --text-on-dark:#111;
+    --text-muted:#666;
+}
+
+body.light-mode{
+    background:#f5f5f5;
+}
+
+body.light-mode .app-frame{
+    background:#ffffff;
+}
+
+body.light-mode .btn-icon{
+    background:#f1f5f9;
+    color:#111827;
+    border:1px solid #d1d5db;
+}
+
+body.light-mode .menu-title,
+body.light-mode .p-info h2{
+    color:#111827;
+}
+
+body.light-mode .marquee-container{
+    background:#f3f4f6;
+}
+
+body.light-mode .card-qris-full{
+    background:#f3f4f6;
+}
+
+body.light-mode .qris-left{
+    background:#e5e7eb;
+    color:#111827;
+}
+
+body.light-mode .qris-right h3{
+    color:#111827;
+}
+
+body.light-mode .feat-item{
+    background:#f8fafc;
+}
+
+body.light-mode .promo-banner{
+    background:linear-gradient(90deg,#2563eb,#60a5fa);
+}
+
+body.light-mode .chat-modal{
+    background:#ffffff;
+    border-color:#d1d5db;
+}
+
+body.light-mode .cm-header,
+body.light-mode .cm-footer{
+    background:#f3f4f6;
+    color:#111827;
+}
+
+body.light-mode .b-bot{
+    background:#e5e7eb;
+    color:#111827;
+}
+
+/* STATS BOX */
+body.light-mode .stat{
+    background:#f3f4f6;
+}
+
+body.light-mode .stat small{
+    color:#374151;
+}
+
+/* LIVE CHAT */
+body.light-mode .chat-modal{
+    background:#ffffff;
+    border:1px solid #d1d5db;
+}
+
+body.light-mode .cm-header{
+    background:#f3f4f6;
+    color:#111827;
+}
+
+body.light-mode .cm-footer{
+    background:#f3f4f6;
+}
+
+body.light-mode .c-chip{
+    color:#111827;
+    border-color:#d1d5db;
+}
+
+body.light-mode .b-bot{
+    background:#e5e7eb;
+    color:#111827;
+}
+
+body.light-mode .b-user{
+    background:#2563eb;
+    color:#ffffff;
+}
+
+.logo-wanz{
+    font-weight:800;
+    font-size:16px;
+    letter-spacing:1px;
+    color:#ffffff;
+    text-shadow:
+        0 0 5px rgba(59,130,246,.6),
+        0 0 10px rgba(59,130,246,.5),
+        0 0 20px rgba(59,130,246,.4);
+    animation: glowWanz 2.5s ease-in-out infinite alternate;
+}
+
+.logo-wanz span{
+    color:#9ca3af;
+}
+
+@keyframes glowWanz{
+    from{
+        text-shadow:
+            0 0 5px rgba(59,130,246,.4),
+            0 0 10px rgba(59,130,246,.3);
+    }
+    to{
+        text-shadow:
+            0 0 10px rgba(59,130,246,.8),
+            0 0 20px rgba(59,130,246,.7),
+            0 0 30px rgba(59,130,246,.5);
+    }
+}
+
+body.light-mode .logo-wanz{
+    color:#111827;
+}
+
+body.light-mode .logo-wanz span{
+    color:#6b7280;
+}
+
 </style>
 </head>
 <body>
 
 <div id="loaderWanz">
 <div class="spinnerWanz"></div>
-<h2>LOADING 🌀</h2>
+<h2>LOADING</h2>
 </div>
 
 
     <audio id="clickSound" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3"></audio>
 
     <div class="app-frame">
-        <div class="header-area">
-            <div class="btn-icon ripple" id="btnMenu">
-                <i class="ri-apps-2-line"></i>
-            </div>
-            <div style="font-weight:800; font-size:16px; letter-spacing:1px;">WANZ<span style="color:var(--text-muted);">PAY 💳</span></div>
-            <div class="btn-icon ripple" onclick="toggleNotifPanel()">
-                <i class="ri-notification-4-line"></i>
-                <div class="notif-badge" id="notifBadge">0</div>
-            </div>
+<div class="header-area">
+
+    <div style="display:flex; gap:10px;">
+
+        <div class="btn-icon ripple" id="btnMenu">
+            <i class="ri-apps-2-line"></i>
         </div>
+
+        <div class="btn-icon ripple" id="themeBtn">
+            <i class="ri-sun-line"></i>
+        </div>
+
+    </div>
+
+<div class="logo-wanz">
+    WANZ<span>PAY 💳</span>
+</div>
+
+    <div class="btn-icon ripple" onclick="toggleNotifPanel()">
+        <i class="ri-notification-4-line"></i>
+        <div class="notif-badge" id="notifBadge">0</div>
+    </div>
+
+</div>
 
         <div class="content-area">
             
@@ -731,6 +900,31 @@ setInterval(() => {
 
     posters[posterIndex].classList.add('active');
 }, 3000);
+
+const themeBtn = document.getElementById("themeBtn");
+
+if(themeBtn){
+
+    if(localStorage.getItem("theme") === "light"){
+        document.body.classList.add("light-mode");
+        themeBtn.querySelector("i").className = "ri-moon-line";
+    }
+
+    themeBtn.onclick = () => {
+        document.body.classList.toggle("light-mode");
+
+        const icon = themeBtn.querySelector("i");
+
+        if(document.body.classList.contains("light-mode")){
+            icon.className = "ri-moon-line";
+            localStorage.setItem("theme","light");
+        }else{
+            icon.className = "ri-sun-line";
+            localStorage.setItem("theme","dark");
+        }
+    };
+
+}
 
 </script>
 </body>
