@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>WANZ WEB PAYMENT</title>
+    <title>WEB PAYMENT WANZ</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
@@ -281,9 +281,45 @@
         .ripple span { position: absolute; border-radius: 50%; background: rgba(255, 255, 255, 0.3); transform: scale(0); animation: ripple 0.6s linear; pointer-events: none; }
         @keyframes ripple { to { transform: scale(4); opacity: 0; } }
 
-    </style>
+    
+#loaderWanz{position:fixed;inset:0;background:#0a0a0a;z-index:99999;display:flex;flex-direction:column;justify-content:center;align-items:center}
+.spinnerWanz{width:60px;height:60px;border:4px solid #333;border-top:4px solid #3b82f6;border-radius:50%;animation:spinWanz 1s linear infinite}
+@keyframes spinWanz{100%{transform:rotate(360deg)}}
+.stats-box{display:flex;gap:10px;margin:15px 0}
+.stat{flex:1;background:#1e1e1e;padding:12px;border-radius:16px;text-align:center}
+.stat h3{color:#60a5fa}
+.toast-wanz{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:#2563eb;color:#fff;padding:12px 18px;border-radius:12px;z-index:999999}
+.poster-slider{
+    width:100%;
+    height:170px;
+    border-radius:20px;
+    overflow:hidden;
+    position:relative;
+    margin-bottom:15px;
+}
+
+.poster-img{
+    position:absolute;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    opacity:0;
+    transition:1s;
+}
+
+.poster-img.active{
+    opacity:1;
+}
+
+</style>
 </head>
 <body>
+
+<div id="loaderWanz">
+<div class="spinnerWanz"></div>
+<h2>LOADING 🌀</h2>
+</div>
+
 
     <audio id="clickSound" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3"></audio>
 
@@ -320,11 +356,24 @@
                 </div>
             </div>
 
-            <div class="marquee-container">
-                <div class="marquee-text">
-                    INFO: Pembayaran Otomatis DANA & ShopeePay tersedia 24 Jam • Hubungi Admin jika ada kendala • Jangan lupa simpan bukti transfer.
-                </div>
-            </div>
+            
+<div class="stats-box">
+<div class="stat"><h3>1.2K+</h3><small>Transaksi</small></div>
+<div class="stat"><h3>99.9%</h3><small>Success</small></div>
+<div class="stat"><h3>24/7</h3><small>Support</small></div>
+</div>
+
+<!-- POSTER -->
+<div class="poster-slider">
+    <img src="poster1.jpg" class="poster-img active">
+</div>
+
+<!-- RUNNING TEXT -->
+<div class="marquee-container">
+    <div class="marquee-text">
+        INFO: Pembayaran Otomatis DANA & ShopeePay tersedia 24 Jam • Hubungi Admin jika ada kendala • Jangan lupa simpan bukti transfer.
+    </div>
+</div>
 
             <div class="menu-title">Main Service</div>
             <div class="menu-grid">
@@ -394,8 +443,8 @@
             </div>
 
             <div class="promo-banner ripple">
-                <h4>Promo Cashback 10%</h4>
-                <p>Khusus pengguna baru untuk transaksi pertama via QRIS.</p>
+                <h4>Promo Diskon 10%</h4>
+                <p>Khusus pembeli baru untuk transaksi pertama via DANA.</p>
                 <i class="ri-coupon-3-line promo-deco"></i>
             </div>
 
@@ -410,11 +459,11 @@
 
         <div class="chat-modal" id="chatWin">
             <div class="cm-header">
-                <span>Live Support</span>
+                <span>Live Support 👩‍💻</span>
                 <i class="ri-close-line" id="closeChat" style="cursor:pointer; font-size:18px;"></i>
             </div>
             <div class="cm-body" id="chatBody">
-                <div class="bubble b-bot">Halo! Ada yang bisa kami bantu?</div>
+                <div class="bubble b-bot">Halo! Ada yang bisa kami bantu🙏🏻😊?</div>
             </div>
             <div class="cm-footer">
                 <button class="c-chip" onclick="sendChat('konfirmasi')">Konfirmasi</button>
@@ -475,7 +524,7 @@
         const playTick = () => { audio.currentTime = 0; audio.play().catch(()=>{}); };
 
         // --- TYPING NAME ---
-        const txtName = "WANZ TECHNICAL";
+        const txtName = "WANZ TECNICAL";
         let i = 0;
         function typeWriter() {
             if(i < txtName.length) {
@@ -610,7 +659,7 @@
             const txt = document.getElementById(id).innerText;
             if(txt.includes('Hubungi')) return;
             navigator.clipboard.writeText(txt);
-            alert(label + ' berhasil disalin!');
+            showToast(label + ' berhasil disalin!');
         };
 
         // --- CHAT SYSTEM ---
@@ -633,7 +682,7 @@
                 const b = document.createElement('div');
                 b.className = 'bubble b-bot';
                 if(msg === 'konfirmasi') b.innerHTML = "✅ Konfirmasi Pembayaran Untuk mempercepat proses, mohon kirimkan bukti transfer kepada admin.";
-                else if(msg === 'admin') b.innerHTML = "📞 Hubungi Admin Untuk konfirmasi pembayaran atau informasi lebih lanjut, silakan hubungi admin melalui WhatsApp: 085714054900 Terima kasih.";
+                else if(msg === 'admin') b.innerHTML = "📞 Hubungi Admin Untuk konfirmasi pembayaran atau informasi lebih lanjut, silakan hubungi admin melalui WhatsApp: 085216704274 Terima kasih.";
                 else b.innerHTML = "⚠️ Ada Kendala? Kalau pembayaran bermasalah, tunggu sebentar ya. Masih error? Langsung chat admin biar dibantu.";
                 bodyC.appendChild(b);
                 bodyC.scrollTop = bodyC.scrollHeight;
@@ -655,6 +704,37 @@
             }
         });
 
-    </script>
+    
+function showToast(msg){
+const t=document.createElement('div');
+t.className='toast-wanz';
+t.innerText=msg;
+document.body.appendChild(t);
+setTimeout(()=>t.remove(),2500);
+}
+window.addEventListener('load',()=>{
+setTimeout(()=>{
+const l=document.getElementById('loaderWanz');
+if(l) l.style.display='none';
+},1500);
+});
+
+let posterIndex = 0;
+
+setInterval(() => {
+    const posters = document.querySelectorAll('.poster-img');
+
+    posters[posterIndex].classList.remove('active');
+
+    posterIndex++;
+
+    if (posterIndex >= posters.length) {
+        posterIndex = 0;
+    }
+
+    posters[posterIndex].classList.add('active');
+}, 3000);
+
+</script>
 </body>
 </html>
